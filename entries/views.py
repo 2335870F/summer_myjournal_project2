@@ -146,7 +146,7 @@ def addentry(request):
 			print(form.errors)
 	return render(request, 'entries/addentry.html', {'form':form})
 
-def viewrecipe(request, entry_name_slug):
+def viewentry(request, entry_name_slug):
 	context_dict = {'cats_bar':cats_bar}
 	try:
 		entry = Entry.objects.get(slug=entry_name_slug)
@@ -168,7 +168,7 @@ def viewrecipe(request, entry_name_slug):
 			form = ReviewForm(request.POST)
 			if form.is_valid():
 				review = form.save(commit=False)
-				review.entry = recipe
+				review.entry = entry
 				review.author = request.user
 				review.save()
 				return redirect('/entries/entry/'+entry_name_slug)
