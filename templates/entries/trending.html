@@ -1,0 +1,23 @@
+{% extends 'entries/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Trending
+{% endblock %}
+
+{% block name_block %}
+	Trending
+{% endblock %}
+
+{% block body_block %}
+	{% if entries %}
+	<div class="row">
+		{% for entry in entries %}
+			<div class="cat">
+					<a href="{% url 'viewentry' entry.slug %}"><img src="{{ MEDIA_URL }}{{ entry.photo }}" alt="Picture of {{ entry.photo }}"/></a>
+					<div class="cat_text">{{ entry.name }}</div>
+			</div>
+		{% endfor %}
+	</div>
+	{% endif %}
+{% endblock %}

@@ -2,16 +2,22 @@
 Summer project to further develop skills learned in Web Application Development class:
 
 This web application is called My Journal.
-Its purpose is to allow users to upload, share, and view recipes from other users in an informal setting.
-Users can register for the Neighborhood Cookbook, allowing them to create a username, add recipes,
-and add reviews and ratings to other users' recipes, as well as suggest a category. Users are able
-to customise their profile by uploading a personalised bio to introduce themselves to the community,
+Its purpose is to allow users to upload information about their courses at university all in one place.
+Unlike moodle, this is a place to store all of your current plans, from university work to plans at the weekend
+to grocery lists. users can create 'entries' which are pages which are forms the user can edit.
+ Users typically make an 'entry' and put it into one of 5 categories: Current Courses, Personal To-Do, 
+ and Well-being Plans, to highlight the balance of the 3 most important things a student must balance: 
+ work, living on your own, and relaxation.
+Users can register for My Journal, allowing them to create a username, add entries,
+and add reviews and ratings to their own entries to measure how well they are keeping up with their tasks,
+as well as suggest a category to us that they feel is missing! Users are able
+to customise their profile by uploading a personalised bio to make the page more friendly and fun,
 and by adding a profile picture. All aspects of the profile can be edited except username, after first registering
 for an account, by using the Edit Profile button displayed on the profile page.
 
-Similarly, users can navigate the website's categories and recipes anonymously without signing in, but
-cannot leave reviews or ratings or add recipes. Anonymous users can also read the About Us page
-to learn more about the creators of the Neighborhood Cookbook.
+Users can only navigate their own categories and entries when signed in, so the anonymous user will 
+not find there is much to do.
+Anonymous users can however of course sign in or sign up, or read the About Us page for more information.
 
 How To Run:<br/>
 <br/>

@@ -1,0 +1,46 @@
+{% extends 'entries/base.html' %}
+{% load staticfiles %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'js/ajax.js' %}"></script>
+{% endblock %}
+
+{% block title_block %}
+  About
+{% endblock %}
+
+
+{% block name_block %}
+	<h7>About My Journal</h7>
+
+{% endblock %}
+
+{% block body_block %}
+
+	<div class = "center">
+		<p>
+			<h8>Welcome to My Journal!<br> Here, you can browse entries created by you. These entries can include anything about your busy life. The idea is to kepe you organized! <br> Create an account and you can create entries! <br> What are you waiting for? Start getting organized before those assignments or the opportunity to buy your dad's birthday present on amazon passes you by!
+			</h8>
+			<br/>
+			<br/>
+			<div class="about">
+				<h7>About The Creators</h7>
+				<br/>
+				<br/>
+				{% if chefs %}
+				{% for chef in chefs %}
+					{% if chef.user.is_staff %}
+						{% with abouturl="/static/about_"|add:chef.user.username|add:".txt" %}
+						<button type="submit" onclick="loadDoc('{{ abouturl }}')"><img src="{{ MEDIA_URL }}{{ chef.photo }}" alt="Picture of {{ chef.user.get_full_name }}" height="100" /></button>
+						{% endwith %}
+					{% endif %}
+				{% endfor %}
+			{% else %}
+				<strong>There are no admins present.</strong>
+			{% endif %}
+			<br/>
+			<div id="about_creator"></div>
+		</div>
+		<h5> This website was designed by Lynda, Amy, Qiufei and Eve </h5>
+	</div>
+{% endblock %}

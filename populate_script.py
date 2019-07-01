@@ -1,8 +1,8 @@
 import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wad2_team_project.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'summer_myjournal_project.settings')
 import django
 django.setup()
-from recipes.models import *
+from entries.models import *
 from django.contrib.auth.models import User
 
 cat_objects = {}
@@ -28,7 +28,7 @@ def populate():
 		"eve_ohagan" : {"email":"eve@gmail.com", "password":"eveohagan", "fname":"Eve", "lname":"O'Hagan", "chef":True, "photo":"profile_pics/eve.png",},
 		"q_smart" : {"email":"q@gmail.com", "password":"qiufeismart", "fname":"Q", "lname":"Smart", "chef":True, "photo":"profile_pics/q.png",},}
 	#EVERY TIME THERE IS A RETURN STATEMENT IN ABOUT/INGREDIENTS/STEPS USE \r\n
-	recipes = [
+	entries = [
 		{"name": "Pancakes",
 		"cook_time" : 15,
 		"cats" : "Breakfast, American",
@@ -177,28 +177,28 @@ def populate():
 		c = add_cat(spec,spec_data["likes"], 'SPE', cat_objects["Special Occasions"], spec_data["photo"])
 		cat_objects[spec] = c
 
-	print(" -Adding recipes . . .")
-	for recipe in recipes:
-		add_recipe(recipe)
+	print(" -Adding entries . . .")
+	for entry in entries:
+		add_entry(entry)
 
 	print(" -Adding reviews . . .")
 	for review, review_data in reviews.items():
 		r = add_review(review,review_data)
 
-def add_recipe(recipe):
-	chef = recipe["chef"]
-	name=recipe['name']
-	r = Recipe.objects.get_or_create(chef=admin_objects[chef], name=name)[0]
-	r.name = recipe['name']
-	r.cook_time = recipe["cook_time"]
-	cats_lst = recipe["cats"].split(", ")
+def add_entry(entry):
+	chef = entry["chef"]
+	name=entry['name']
+	r = Entry.objects.get_or_create(chef=admin_objects[chef], name=name)[0]
+	r.name = entry['name']
+	r.cook_time = entry["cook_time"]
+	cats_lst = entry["cats"].split(", ")
 	print("   ",name,cats_lst)
 	for c in cats_lst:
 		r.categories.add(cat_objects[c])
-	r.photo = "food_pics/"+recipe["photo"]
-	r.about = recipe["about"]
-	r.ingredients = recipe["ingredients"]
-	r.steps = recipe["steps"]
+	r.photo = "food_pics/"+entry["photo"]
+	r.about = entry["about"]
+	r.ingredients = entry["ingredients"]
+	r.steps = entry["steps"]
 	r.save()
 	return r
 
@@ -233,13 +233,13 @@ def add_chef(user,user_data):
 	return chef
 
 def add_review(title,review_data):
-	recipe_chef = review_data["chef"]
-	recipe_name = review_data["recipe"]
+	entry_chef = review_data["chef"]
+	entry_name = review_data["entry"]
 	author = review_data["author"]
 	rating = review_data["rating"]
 
-	recipe = Recipe.objects.get(chef=admin_objects[recipe_chef], name=recipe_name)
-	review = Review.objects.get_or_create(recipe=recipe, author=admin_objects[author])[0]
+	entry = Entry.objects.get(chef=admin_objects[entry_chef], name=entry_name)
+	review = Review.objects.get_or_create(entry=entry, author=admin_objects[author])[0]
 	review.title = title
 	review.rating = review_data["rating"]
 	review.comment = review_data["comment"]

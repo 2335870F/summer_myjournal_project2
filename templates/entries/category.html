@@ -1,0 +1,54 @@
+{% extends 'entries/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	{% if cat %}
+		{{ cat.name }}
+	{% endif %}
+{% endblock %}
+
+{% block name_block %}
+	{% if cat %}
+		{{ cat.name }}
+	{% endif %}
+{% endblock %}
+
+{% block body_block %}
+<div class="show_categories">
+	<div class="cat_bar">
+		<h3>Categories</h3>
+		{% for cat in cats_bar %}
+			<a href="{% url 'show_category' cat.slug %}">{{ cat.name }}</a><br>
+		{% endfor %}
+	</div>
+	<div>
+		{% if cat %}
+			{% if subcats %}
+				<div class="row">
+					{% for subcat in subcats %}
+						<div class="cat">
+								<a href="{% url 'show_category' subcat.slug %}"><img src="{{ MEDIA_URL }}{{ subcat.photo }}" alt="Picture of {{ subcat.photo }}"/></a>
+								<div class="cat_text">{{ subcat.name }}</div>
+						</div>
+					{% endfor %}
+				</div>
+			{% else %}
+				{% if entries %}
+					<div class="row">
+						{% for entry in entries %}
+							<div class="cat">
+								<a href="{% url 'viewentry' entry.slug %}"><img src="{{ MEDIA_URL }}{{ entry.photo }}" alt="Picture of {{ entry.photo }}"/></a>
+								<div class="cat_text">{{ entry.name }}</div>
+							</div>
+						{% endfor %}
+					</div>
+				{% else %}
+					<strong>No entries currently in category.</strong>
+				{% endif %}
+			{% endif %}
+		{% else %}
+			<strong>The specified category does not exist!</strong>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}

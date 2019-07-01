@@ -1,0 +1,29 @@
+{% extends 'entries/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+   Adding an entry
+{% endblock %}
+
+{% block name_block %}
+	New Entry
+{% endblock %}
+
+{% block body_block %}
+<div class="add">
+	<form id="addentry" method="post" enctype="multipart/form-data" action={% url 'addentry' %}>
+		{% csrf_token %}
+		{% for field in form.visible_fields %}
+			<strong>{{ field.label }}</strong>
+			{% if field.help_text %}
+				{{ field.help_text }}
+			{% endif %}<br/>
+			{% if errors %}
+				{{ field.errors }}
+			{% endif %}
+			{{ field }}<br/>
+		{% endfor %}
+		<input type="submit" name="submit" value="Add Entry" class="button"/>
+	</form>
+</div>
+{% endblock %}

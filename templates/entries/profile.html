@@ -1,0 +1,64 @@
+{% extends 'entries/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+  {{ chef.user.username }}
+{% endblock %}
+
+{% block body_block %}
+	<div class="account">
+		<div class ="user_info">
+			<div>
+				<img class="profile" src="{{ MEDIA_URL }}{{ chef.photo }}" alt="Picture of {{ chef.user.first_name }}"/><br/>
+				<strong>Username :</strong>   {{ chef.user.username }}<br>
+				<strong>  Full name :</strong> {{ chef.user.get_full_name }}<br>
+				<strong> Date joined :</strong> {{ chef.user.date_joined }}
+			</div>
+			<br/>
+			{% if chef.user.username == user.username %}
+				<div class="urls">
+					{% if user.is_authenticated %}
+						<a href="{% url 'edit_profile' user.username %}">Edit Profile</a>
+					{% endif %}
+					 <br>
+				</div>
+				<br>
+			{% endif %}
+		</div>
+
+		<div class="user_entries">
+			<div class="page_name">{{ chef.user.get_full_name }}</div>
+			<h3>Bio</h3>
+				{{ chef.bio }}
+			<h3>Entries</h3>
+			{% if entries %}
+				{% for entry in entries %}
+					<div class="entry">
+						<a href="{% url 'viewentry' entry.slug %}"><img src="{{ MEDIA_URL }}{{ entry.photo }}" alt="Picture of {{ entry.photo }}" width="90"/></a>
+						<div>
+							<strong>{{ entry.name }}</strong><br/>
+							{{ entry.about }}
+						</div>
+					</div>
+				{% endfor %}
+			{% else %}
+				<strong>User has not created any entries.</strong>
+			{% endif %}
+
+			<h3>Reviews</h3>
+			{% if reviews %}
+				{% for review in reviews %}
+					<div class="entry">
+						<a href="{% url 'viewentry' review.entry.slug %}"><img src="{{ MEDIA_URL }}{{ review.entry.photo }}" alt="Picture of {{ review.entry }}" width="90"/></a>
+						<div>
+							<strong>{{ review.rating }}, {{ review.title }}</strong> -- {{ review.date_posted }}<br/>
+							{{ review.comment }}
+						</div>
+					</div>
+				{% endfor %}
+			{% else %}
+				<strong>User has not given any reviews.</strong>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

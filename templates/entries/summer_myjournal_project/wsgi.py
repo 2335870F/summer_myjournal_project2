@@ -1,5 +1,5 @@
 """
-WSGI config for summer_myjournal_project project.
+WSGI config for wad2_team_project project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
